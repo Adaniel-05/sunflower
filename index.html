@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Mi Amor 🌻</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #fffbe6, #ffe680 80%, #ffe066 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+    }
+    .instruccion {
+      margin-top: 24px;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      color: #a14a00;
+      background: rgba(255, 255, 200, 0.85);
+      padding: 8px 24px;
+      border-radius: 24px;
+      box-shadow: 0 2px 8px #ffe9a0;
+      z-index: 30;
+      pointer-events: none;
+      user-select: none;
+    }
+    .flower {
+      position: relative;
+      width: 90vw;
+      max-width: 400px;
+      height: 90vw;
+      max-height: 400px;
+      min-width: 250px;
+      min-height: 250px;
+      overflow: visible;
+      z-index: 1;
+    }
+    .stem {
+  position: absolute;
+  left: 50%;
+  top: 50%; 
+  width: 7%;
+  height: 100vh; 
+  min-height: 90px;
+  max-height: 220px;
+  background: linear-gradient(to bottom, #6ab04c 60%, #218c2c 100%);
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 8px 16px 0 #b2e59e;
+  transform: translate(-50%, 0); 
+  z-index: 0;
+}
+    .petal {
+      position: absolute;
+      width: 12%;
+      height: 30%;
+      background: linear-gradient(to top, #f5c518 70%, #ffe066 100%);
+      border-radius: 50% 50% 0 0;
+      border: 2.5px solid #e2a800;
+      box-shadow: 0 4px 12px 0 rgba(200,140,0,0.18), 0 1px 0 #fff6b0 inset;
+      transform-origin: 50% 100%;
+      transition: 
+        transform 0.4s cubic-bezier(.4,2,.6,1), 
+        opacity 0.4s, 
+        box-shadow 0.2s;
+      cursor: pointer;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -100%) rotate(0deg) translateY(-43%);
+    }
+    .petal:hover {
+      box-shadow: 0 8px 24px 0 rgba(200,140,0,0.28), 0 1px 0 #fff6b0 inset;
+      filter: brightness(1.08) saturate(1.2);
+      z-index: 3;
+    }
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 35%;
+      height: 35%;
+      background: radial-gradient(circle at 60% 40%, #7a5232 60%, #5c3a1e 100%);
+      border-radius: 50%;
+      box-shadow: 0 6px 24px 0 #a97c50, 0 0 0 8px #ffe9a0 inset;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      overflow: hidden;
+    }
+    .center::after {
+      content: "";
+      position: absolute;
+      left: 20%;
+      top: 25%;
+      width: 60%;
+      height: 50%;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      filter: blur(2px);
+      pointer-events: none;
+    }
+    .bubble {
+  position: absolute;
+  background: #fff6d1;
+  color: #5c3a1e;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  opacity: 1;
+  animation: floatUp 5s ease forwards; 
+  pointer-events: none;
+  z-index: 10;
+  left: 50vw;
+  top: 20vh;
+  transform: translate(-50%, 0);
+  max-width: 80vw;     
+  white-space: pre-line; 
+  word-break: break-word;
+  text-align: center;    
+}
+    @keyframes floatUp {
+      0% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -100px);
+        opacity: 0;
+      }
+    }
+    .final-message-popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      animation: fadeIn 0.5s;
+    }
+    .final-message-content {
+      background: #fffbe6;
+      border-radius: 32px;
+      box-shadow: 0 8px 32px #a97c50, 0 0 0 8px #ffe9a0 inset;
+      padding: 40px 32px 32px 32px;
+      font-size: 2rem;
+      color: #a14a00;
+      text-align: center;
+      max-width: 90vw;
+      max-height: 80vh;
+      position: relative;
+      animation: popupScale 0.5s;
+    }
+    .final-message-content button {
+      margin-top: 24px;
+      font-size: 1.1rem;
+      background: #ffe066;
+      color: #a14a00;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 28px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ffe9a0;
+      transition: background 0.2s;
+    }
+    .final-message-content button:hover {
+      background: #ffe680;
+    }
+    @keyframes popupScale {
+      0% { transform: scale(0.7);}
+      100% { transform: scale(1);}
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    @media (max-width: 500px) {
+      .final-message-content {
+        font-size: 1.2rem;
+        padding: 24px 8px 16px 8px;
+      }
+      .instruccion {
+        font-size: 1rem;
+        padding: 6px 10px;
+      }
+    }
+    @keyframes arrancarPetaloOut {
+      0% {
+        opacity: 1;
+        transform: var(--petal-transform, none) scale(1);
+      }
+      60% {
+        opacity: 1;
+        transform: var(--petal-transform, none) translate(var(--dx,0px), var(--dy,0px)) scale(1.1);
+      }
+      100% {
+        opacity: 0;
+        transform: var(--petal-transform, none) translate(calc(var(--dx,0px) * 2), calc(var(--dy,0px) * 2)) scale(0.7);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="instruccion">Arranca los pétalos, nomi</div>
+
+<div class="flower" id="flower">
+  <div class="center"></div>
+  <div class="stem"></div>
+</div>
+
+<div id="finalMessagePopup" class="final-message-popup" style="display:none;">
+  <div class="final-message-content">
+    "Vamos despacio, para encontrarnos"
+    <br>
+    <button onclick="document.getElementById('finalMessagePopup').style.display='none'">Cerrar</button>
+  </div>
+</div>
+
+<script>
+  const flower = document.getElementById('flower');
+  const finalMessagePopup = document.getElementById('finalMessagePopup');
+
+  const baseMessages = [
+    "Te vi, y el mundo desapareció",
+    "Las canciones en la radio están bien, pero mi gusto musical es tu rostro",
+    "Regálame tu corazón, Déjame entrar a ese lugar",
+    "Lo que más quiero en este mundo, Eso eres",
+    "Yo te vi y le dije al cielo, Que me devuelva una parte de mí",
+    "Somos cómplices los dos",
+    "Vamos, cuenta mi amor, cuéntame sobre tu vida",
+    "Cuando te miro puedo soñar",
+    "Si te llevo es para que me lleves",
+    "Sos el paisaje mas bonito",
+    "¿cómo se puede sentir tantas cosas en tan poco tiempo y no morir?",
+    "Antes de ti...Yo no conocía el amor",
+    "El que ama no puede pensar...todo lo da, todo lo da",
+    "Brillas y brillas tan lindo",
+    "Contigo yo quiero todo y nada a medias",
+    "Intentalo mi niña, quiero verte reir",
+    "Voy a salir a caminar y aunque es muy grande la ciudad presiento que nos vamos a encontrar",
+    "No dejare que seas fria, yo podria calentarte",
+    "y llevo rato tratando de decirte, que ya no puedo vivir sin ti",
+    "Adorable puente se ha creado entre los dos.Cruza el amor yo cruzare lo dedos",
+    "Quiero que me trates suavemente",
+    "Ella parece sospechar, Parece descubrir,En mí,Que aquel amor,Es como un océano de fuego",
+    "Bésame,junta tus labios con los míos otra vez",
+    "Estamos tan enamorados, Solos en el mundo, como un par de adolescentes",
+    "¿De qué me sirve este país? Si no puedo reír contigo",
+    "Que todo es perfecto cuando te siento, Tan cerca aunque estés tan lejos",
+    "Yo te quiero tal y como estás, No hace falta cambiarte nada",
+    "Me estoy enamorando, se que para toda la vida",
+    "Dejame, dejame que te toque la piel",
+    "¿Y quién me va a entregar sus emociones?¿Quién me va a pedir que nunca le abandone?",
+    "Me pediste que te diera un beso. Con lo baratos que salen mi amor. Qué te cuesta callarme con uno de esos",
+    "Yo quisiera que vivieras de mi siempre enamorada",
+    "Puedo frenar el mundo por un segundo,Y que me digas cuánto querías, Que esto pasara una vez más",
+    "Si yo no te tengo a ti.¿Para qué quiero vivir?",
+    "El fin de amar, Sentirse más..Vivo",
+    "Por un beso de la flaca, daría lo que fuera",
+
+  ];
+
+  const messages = [];
+  while (messages.length < 36) {
+    messages.push(baseMessages[messages.length % baseMessages.length]);
+  }
+
+  let remaining = messages.length;
+
+  for (let i = 0; i < messages.length; i++) {
+    const angle = (360 / messages.length) * i;
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-43%)`;
+    petal.dataset.message = messages[i];
+
+   
+    const rad = (angle - 90) * Math.PI / 180; 
+    const dirX = Math.cos(rad);
+    const dirY = Math.sin(rad);
+
+    let startX = null, startY = null;
+    let arrancado = false;
+
+    function getEventXY(e) {
+      if (e.touches) {
+        return [e.touches[0].clientX, e.touches[0].clientY];
+      } else {
+        return [e.clientX, e.clientY];
+      }
+    }
+
+    function startDrag(e) {
+      if (arrancado) return;
+      [startX, startY] = getEventXY(e);
+      petal.style.transition = "none";
+      petal.style.zIndex = 10;
+      window.addEventListener("mousemove", onDrag);
+      window.addEventListener("touchmove", onDrag);
+    }
+
+    function onDrag(e) {
+      if (arrancado) return;
+      let [x, y] = getEventXY(e);
+      
+      const delta = ((x - startX) * dirX + (y - startY) * dirY);
+      if (delta > 0) {
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-43%) translate(${dirX * delta}px, ${dirY * delta}px)`;
+      }
+      
+      if (delta > 40) {
+        arrancarPetalo();
+      }
+    }
+
+    function arrancarPetalo() {
+      if (arrancado) return;
+      arrancado = true;
+      petal.style.setProperty('--petal-transform', `translate(-50%, -100%) rotate(${angle}deg) translateY(-43%)`);
+      petal.style.setProperty('--dx', `${dirX * 60}px`);
+      petal.style.setProperty('--dy', `${dirY * 60}px`);
+      petal.style.animation = "arrancarPetaloOut 0.8s forwards";
+      petal.style.pointerEvents = "none";
+
+      
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = petal.dataset.message;
+      document.body.appendChild(bubble);
+
+      setTimeout(() => {
+        bubble.remove();
+        petal.remove();
+      }, 1800);
+
+      remaining--;
+      if (remaining === 0) {
+        setTimeout(() => {
+          finalMessagePopup.style.display = "flex";
+        }, 600);
+      }
+      window.removeEventListener("mousemove", onDrag);
+      window.removeEventListener("touchmove", onDrag);
+    }
+
+    function endDrag() {
+      if (arrancado) return;
+      
+      petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-43%)`;
+      petal.style.zIndex = 1;
+      window.removeEventListener("mousemove", onDrag);
+      window.removeEventListener("touchmove", onDrag);
+    }
+
+    
+    petal.addEventListener("mousedown", startDrag);
+    petal.addEventListener("touchstart", startDrag);
+    window.addEventListener("mouseup", endDrag);
+    window.addEventListener("touchend", endDrag);
+
+    flower.appendChild(petal);
+  }
+</script>
+
+</body>
+</html>
